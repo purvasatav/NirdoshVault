@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
+    "build": "tsc && copyfiles -u 1 \"src/samples/**/*\" dist",
     "start": "node dist/server.js",
     "lint": "tsc --noEmit",
     "test": "node -r ts-node/register src/services/consensusService.test.ts && node -r ts-node/register src/services/extractionService.test.ts"
@@ -38,7 +38,9 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.14.9",
     "@types/uuid": "^10.0.0",
+    "copyfiles": "^2.4.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3"
   }
 }
+
