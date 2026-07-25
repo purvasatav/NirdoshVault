@@ -30,7 +30,7 @@ app.use(helmet({
 }));
 
 // ─── CORS ─────────────────────────────────────────────────────────
-app.use(cors({ origin: config.cors.origin }));
+app.use(cors({ origin: config.cors.origin.split(',').map(o => o.trim()) }));
 
 // ─── Body Parsers ─────────────────────────────────────────────────
 app.use(express.json());
@@ -106,3 +106,4 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 export { uploadLimiter, analysisLimiter };
 export default app;
+
