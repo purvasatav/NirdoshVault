@@ -111,13 +111,15 @@ router.post('/load', authenticate, async (req: AuthRequest, res: Response): Prom
     }
 
     // 4. Run Consensus Engine
-    const fieldResults = runConsensusEngine(createdDocs);
+    const auditReport = runConsensusEngine(createdDocs);
+    const fieldResults = auditReport.fieldResults;
 
     // 5. Generate Guidance
     const guidance = await generateGuidance(fieldResults);
 
     // 6. Compute Summary
     const summary = {
+      ...auditReport.summary,
       totalFieldsChecked: fieldResults.length,
       consensusCount: fieldResults.filter(r => r.status === 'consistent').length,
       outlierCount: fieldResults.filter(r => r.status === 'outlier_detected' || r.status === 'possible_variant').length,
@@ -166,3 +168,5 @@ router.post('/load', authenticate, async (req: AuthRequest, res: Response): Prom
 });
 
 export default router;
+
+

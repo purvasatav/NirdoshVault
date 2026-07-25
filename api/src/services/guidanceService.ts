@@ -2,7 +2,7 @@ import ruleData from '../data/correction-rules.json';
 import { IFieldResult, IGuidanceItem } from '../models/store';
 import type { CorrectionRule, GuideStatus } from '../types/nirdosh-vault';
 
-const rules = ruleData.rules as CorrectionRule[];
+const rules = ruleData.rules as unknown as CorrectionRule[];
 const active = (rule: CorrectionRule) => rule.rule_status !== 'unverified' && (!rule.expires_for_review_on || new Date(rule.expires_for_review_on) >= new Date());
 
 export function buildCorrectionKit(analysisId: string, result: IFieldResult, documentType?: string) {
@@ -45,4 +45,5 @@ export async function generateGuidance(fieldResults: IFieldResult[]): Promise<IG
     disclaimer: 'Nirdosh Vault does not determine legal truth or choose a correction target automatically.' 
   }));
 }
+
 

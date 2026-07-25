@@ -214,7 +214,7 @@ async function runExtractionTests() {
   );
 }
 
-runExtractionTests().catch((err) => {
+runExtractionTests().catch((err: any) => {
   console.error('❌ Extraction Unit Test Failed:', err);
   process.exit(1);
 });

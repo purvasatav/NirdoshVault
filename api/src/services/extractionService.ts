@@ -241,7 +241,7 @@ class PaddleOCRProcess {
     if (this.isReady()) return Promise.resolve();
     if (this.warmupPromise) return this.warmupPromise;
 
-    this.warmupPromise = new Promise((resolve) => {
+    const promise: Promise<void> = new Promise<void>((resolve) => {
       const scriptPath = path.join(__dirname, 'paddle_server.py');
 
       if (!fs.existsSync(scriptPath)) {
@@ -331,7 +331,8 @@ class PaddleOCRProcess {
       this.warmupPromise = null;
     });
 
-    return this.warmupPromise;
+    this.warmupPromise = promise;
+    return promise;
   }
 
   isReady(): boolean {
@@ -963,3 +964,4 @@ export async function extractDocumentFields(pageImages: string[], mimeType: stri
     validationMs: res.validationMs,
   };
 }
+
